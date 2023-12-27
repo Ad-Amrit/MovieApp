@@ -1,12 +1,10 @@
-// ListMovie.js
-import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
-import MovieTable from './MovieTable';
-import '../styles/ListMovie.css';
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
+import MovieTable from "./MovieTable";
+import '../styles/ListMovie.css'
 
 const ListMovie = () => {
   const [cinema, setCinema] = useState([]);
-  const [movieStatus, setMovieStatus] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,16 +20,9 @@ const ListMovie = () => {
     fetchData();
   }, []);
 
-  const updateMovieStatus = (movieId, status) => {
-    setMovieStatus((prevStatus) => ({
-      ...prevStatus,
-      [movieId]: status,
-    }));
-  };
-
   return (
     <div className="container">
-      <MovieTable cinema={cinema} movieStatus={movieStatus} updateMovieStatus={updateMovieStatus} />
+      <MovieTable cinema={cinema} />
     </div>
   );
 };

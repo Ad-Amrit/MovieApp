@@ -1,29 +1,26 @@
-// Status.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
 
-const Status = ({ onUpdateStatus, initialStatus, movieId }) => {
+const Status = ({ initialStatus, movieId }) => {
   const [status, setStatus] = useState(() => {
     const storedStatus = localStorage.getItem(`movieStatus_${movieId}`);
-    return storedStatus || initialStatus || '';
+    return storedStatus || initialStatus || "";
   });
-
-  useEffect(() => {
-    if (typeof onUpdateStatus === 'function') {
-      onUpdateStatus(movieId, status);
-    }
-    localStorage.setItem(`movieStatus_${movieId}`, status);
-  }, []);
 
   const handleStatusChange = (e) => {
     const newStatus = e.target.value;
-    setStatus((prevStatus) => (prevStatus === newStatus ? prevStatus : newStatus));
+    setStatus((prevStatus) =>
+      prevStatus === newStatus ? prevStatus : newStatus
+    );
+    localStorage.setItem(`movieStatus_${movieId}`, newStatus);
+    window.location.reload();
   };
 
   return (
     <select value={status} onChange={handleStatusChange}>
-      <option value="Completed">Completed</option>
-      <option value="Watching">Watching</option>
-      <option value="HoldList">HoldList</option>
+      <option value="default">Default</option>
+      <option value="completed">Completed</option>
+      <option value="watching">Watching</option>
+      <option value="holdList">HoldList</option>
     </select>
   );
 };
